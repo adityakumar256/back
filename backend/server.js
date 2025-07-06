@@ -6,21 +6,22 @@ const connectDB = require("./db");
 const userRoutes = require("./routes/User");
 const uploadRoute = require('./routes/upload');
 const resourceRoutes = require('./routes/resources');
-const subjectRoutes = require('./routes/subjects'); // ✅
+const subjectRoutes = require('./routes/subjects');
 
 const app = express();
 connectDB();
 
 app.use(express.json());
+
 app.use(cors({
-  origin: 'https://rgpvpathshala.onrender.com/'
+  origin: 'https://rgpvpathshala.onrender.com',
+  credentials: true
 }));
 
-// ✅ API prefixes — sab perfect
 app.use("/api", userRoutes);
 app.use("/api/upload", uploadRoute);
 app.use("/api/resources", resourceRoutes);
-app.use("/api/subjects", subjectRoutes); // ✅ ONLY `/subjects`
+app.use("/api/subjects", subjectRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
